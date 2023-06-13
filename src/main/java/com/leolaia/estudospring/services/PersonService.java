@@ -1,8 +1,10 @@
 package com.leolaia.estudospring.services;
 
 import com.leolaia.estudospring.data.vo.v1.PersonVO;
+import com.leolaia.estudospring.data.vo.v2.PersonVOV2;
 import com.leolaia.estudospring.exceptions.ResourceNotFoundException;
 import com.leolaia.estudospring.mappers.DozerMapper;
+import com.leolaia.estudospring.mappers.custom.PersonMapper;
 import com.leolaia.estudospring.models.Person;
 import com.leolaia.estudospring.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class PersonService {
 
     @Autowired
     PersonRepository repository;
+    @Autowired
+    PersonMapper mapper;
 
 
     public List<PersonVO> findAll(){
@@ -37,6 +41,13 @@ public class PersonService {
         return vo;
     }
 
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Creating one person with V2!");
+        Person entity = mapper.convertVOToEntity(person);
+        PersonVOV2 vo = mapper.convertEntityToVo(repository.save(entity));
+        return vo;
+    }
+
     public PersonVO update(PersonVO person) {
         logger.info("Updating one person!");
         Person entity = repository.findById(person.getId()).orElseThrow( () -> new ResourceNotFoundException("No records found for this ID"));
@@ -53,6 +64,5 @@ public class PersonService {
         Person entity = repository.findById(id).orElseThrow( () -> new ResourceNotFoundException("No records found for this ID"));
         repository.delete(entity);
     }
-
 
 }

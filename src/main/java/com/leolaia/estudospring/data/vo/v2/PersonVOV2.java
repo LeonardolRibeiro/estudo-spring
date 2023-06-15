@@ -1,5 +1,7 @@
 package com.leolaia.estudospring.data.vo.v2;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -10,6 +12,7 @@ public class PersonVOV2 implements Serializable {
     private String firstName;
     private String lastName;
     private String address;
+    @JsonIgnore
     private String gender;
     private Date birthDay;
 

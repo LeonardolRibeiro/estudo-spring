@@ -2,15 +2,18 @@ package com.leolaia.estudospring.data.vo.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.*;
+import com.github.dozermapper.core.Mapping;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @JsonPropertyOrder({"id", "first_name", "last_name", "gender", "address"})
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
-    private Long id;
+    @JsonProperty("id")
+    @Mapping("id")
+    private Long key;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
@@ -21,20 +24,20 @@ public class PersonVO implements Serializable {
     public PersonVO() {
     }
 
-    public PersonVO(Long id, String firstName, String lastName, String address, String gender) {
-        this.id = id;
+    public PersonVO(Long key, String firstName, String lastName, String address, String gender) {
+        this.key = key;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getFirstName() {
@@ -73,11 +76,11 @@ public class PersonVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonVO person)) return false;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
+        return Objects.equals(getKey(), person.getKey()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender());
+        return Objects.hash(getKey(), getFirstName(), getLastName(), getAddress(), getGender());
     }
 }

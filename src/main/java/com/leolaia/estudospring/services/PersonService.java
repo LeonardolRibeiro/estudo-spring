@@ -9,7 +9,6 @@ import com.leolaia.estudospring.mappers.custom.PersonMapper;
 import com.leolaia.estudospring.models.Person;
 import com.leolaia.estudospring.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -25,7 +25,7 @@ public class PersonController {
         return personService.findAll();
     }
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception{
+    public PersonVO findById(@PathVariable(value = "id") Long id){
         return personService.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    public PersonVO create(@RequestBody PersonVO person) throws Exception{
+    public PersonVO create(@RequestBody PersonVO person) {
         return personService.create(person);
     }
     @PostMapping(
@@ -41,19 +41,19 @@ public class PersonController {
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    public PersonVOV2 createV2(@RequestBody PersonVOV2 person) throws Exception{
+    public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
         return personService.createV2(person);
     }
     @PutMapping(
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    public PersonVO update(@RequestBody PersonVO person) throws Exception{
+    public PersonVO update(@RequestBody PersonVO person) {
         return personService.update(person);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception{
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
     }

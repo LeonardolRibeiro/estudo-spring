@@ -3,6 +3,7 @@ package com.leolaia.estudospring.services;
 import com.leolaia.estudospring.controllers.PersonController;
 import com.leolaia.estudospring.data.vo.v1.PersonVO;
 import com.leolaia.estudospring.data.vo.v2.PersonVOV2;
+import com.leolaia.estudospring.exceptions.RequiredObjectIsNullException;
 import com.leolaia.estudospring.exceptions.ResourceNotFoundException;
 import com.leolaia.estudospring.mappers.DozerMapper;
 import com.leolaia.estudospring.mappers.custom.PersonMapper;
@@ -42,7 +43,7 @@ public class PersonService {
                 });
         return personVOS;
     }
-    public PersonVO findById(Long id) throws Exception {
+    public PersonVO findById(Long id) {
         logger.info("Finding one person!");
         Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         PersonVO vo = DozerMapper.parseObject(person, PersonVO.class);
@@ -50,7 +51,10 @@ public class PersonService {
         return vo;
     }
 
-    public PersonVO create(PersonVO person) throws Exception {
+    public PersonVO create(PersonVO person) {
+
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one person!");
         Person entity = DozerMapper.parseObject(person, Person.class);
         PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
@@ -65,7 +69,9 @@ public class PersonService {
         return vo;
     }
 
-    public PersonVO update(PersonVO person) throws Exception {
+    public PersonVO update(PersonVO person) {
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one person!");
         Person entity = repository.findById(person.getKey()).orElseThrow( () -> new ResourceNotFoundException("No records found for this ID"));
         entity.setFirstName(person.getFirstName());

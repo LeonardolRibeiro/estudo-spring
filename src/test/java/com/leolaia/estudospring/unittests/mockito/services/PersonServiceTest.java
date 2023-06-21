@@ -68,13 +68,75 @@ class PersonServiceTest {
 
     @Test
     void create() {
+        Person person = input.mockEntity(1);
+
+        Person savedPerson = person;
+        savedPerson.setId(1L);
+
+        PersonVO vo = input.mockVO(1);
+        vo.setKey(1L);
+
+        when(repository.save(person)).thenReturn(savedPerson);
+
+        try {
+            PersonVO result = service.create(vo);
+            assertNotNull(result);
+            assertNotNull(result.getKey());
+            assertNotNull(result.getLinks());
+            assertNotNull(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+            assertEquals("Addres Test1", result.getAddress());
+            assertEquals("First Name Test1", result.getFirstName());
+            assertEquals("Last Name Test1", result.getLastName());
+            assertEquals("Female", result.getGender());
+
+        } catch (Exception e) {
+            fail();
+        }
+
     }
 
     @Test
     void update() {
+        Person person = input.mockEntity(1);
+        person.setId(1L);
+
+        Person savedPerson = person;
+        savedPerson.setId(1L);
+
+        PersonVO vo = input.mockVO(1);
+        vo.setKey(1L);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(person));
+        when(repository.save(person)).thenReturn(savedPerson);
+
+        try {
+            PersonVO result = service.update(vo);
+            assertNotNull(result);
+            assertNotNull(result.getKey());
+            assertNotNull(result.getLinks());
+            assertNotNull(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+            assertEquals("Addres Test1", result.getAddress());
+            assertEquals("First Name Test1", result.getFirstName());
+            assertEquals("Last Name Test1", result.getLastName());
+            assertEquals("Female", result.getGender());
+
+        } catch (Exception e) {
+            fail();
+        }
+
     }
 
     @Test
     void delete() {
+        Person person = input.mockEntity(1);
+        person.setId(1L);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(person));
+
+        try {
+            service.delete(1L);
+        } catch (Exception e) {
+            fail();
+        }
     }
 }

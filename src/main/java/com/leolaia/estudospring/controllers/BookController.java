@@ -79,11 +79,6 @@ public class BookController {
     public BookVO create(@RequestBody BookVO book) {
         return bookService.create(book);
     }
-    @PostMapping(
-            value = "/v2",
-            consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
-            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
-    )
 
     @PutMapping(
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},

@@ -60,7 +60,7 @@ public class BookService {
         logger.info("Updating one book!");
         Book entity = repository.findById(book.getKey()).orElseThrow( () -> new ResourceNotFoundException("No records found for this ID"));
         entity.setAuthor(book.getAuthor());
-        entity.setLauchDate(book.getLauchDate());
+        entity.setLaunchDate(book.getLaunchDate());
         entity.setPrice(book.getPrice());
         entity.setTitle(book.getTitle());
         BookVO vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);

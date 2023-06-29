@@ -10,7 +10,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
-  springdoc:
-    pathsToMatch: /api/**/v1/**
-    swagger-ui:
-      use-root-path: true
+springdoc:
+  pathsToMatch: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
+
+

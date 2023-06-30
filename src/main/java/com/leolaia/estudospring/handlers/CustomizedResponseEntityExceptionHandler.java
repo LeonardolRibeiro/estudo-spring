@@ -1,6 +1,7 @@
 package com.leolaia.estudospring.handlers;
 
 import com.leolaia.estudospring.exceptions.ExceptionResponse;
+import com.leolaia.estudospring.exceptions.InvalidJwtAuthenticationException;
 import com.leolaia.estudospring.exceptions.RequiredObjectIsNullException;
 import com.leolaia.estudospring.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationExceptions(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 }

@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -29,17 +31,22 @@ public class SecurityConfig {
 
     //Define como serão encriptadas as senhas para fazer a comparação com a senha que está no banco
     // para isso implementamos um algoritimo que diz qual será utilizado para fazer o encoding e mais algumas informações
+//    @Bean
+//    PasswordEncoder passwordEncoder(){
+//        Map<String, PasswordEncoder> encoders = new HashMap<>();
+//
+//        //pbkdf2 é mais performatico que o decoder
+//        Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder("", 8, 18500, PBKDF2WithHmacSHA256);
+//        encoders.put("pbkdf2", encoder);
+//
+//        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
+//        passwordEncoder.setDefaultPasswordEncoderForMatches(encoder);
+//        return passwordEncoder;
+//    }
+
     @Bean
-    PasswordEncoder passwordEncoder(){
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-
-        //pbkdf2 é mais performatico que o decoder
-        Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder("", 8, 18500, PBKDF2WithHmacSHA256);
-        encoders.put("pbkdf2", encoder);
-
-        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
-        passwordEncoder.setDefaultPasswordEncoderForMatches(encoder);
-        return passwordEncoder;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

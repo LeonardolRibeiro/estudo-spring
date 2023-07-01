@@ -8,10 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Tag(name = "Authentication endpoint")
 @RestController
@@ -36,8 +35,19 @@ public class AuthController {
         return token;
     }
 
+    @PutMapping(value = "/refresh/{username}")
+    @Operation(summary = "Refresh token for authenticated user and returns a token")
+    public ResponseEntity refreshToken(@PathVariable("username") String username,
+                                       @RequestHeader("Authorization") String refreshToken) {
+        if (isBlank(username) || isBlank(refreshToken))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        var token = authService.refreshToken(username, refreshToken);
+        if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+        return token;
+    }
+
     private static boolean checkIfDataIsNotNull(AccountCredentialsVO data) {
-        return data == null || StringUtils.isBlank(data.getUserName()) || StringUtils.isBlank(data.getPassword());
+        return data == null || isBlank(data.getUserName()) || isBlank(data.getPassword());
     }
 
 

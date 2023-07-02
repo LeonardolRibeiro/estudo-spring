@@ -1,9 +1,12 @@
-package com.leolaia.estudospring.data.vo.v1.security;
+package com.leolaia.estudospring.integrationTests.vo;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+@XmlRootElement
 public class TokenVO implements Serializable {
 
     private String username;

@@ -1,0 +1,1 @@
+﻿UPDATE `users` SET `password` = '$2a$10$WF5kcQ.gG0QbnS73ltdoF.Z7jNykEi4ayC0r7AciqpZSi/7fCumlW' WHERE `id` in (1,2);

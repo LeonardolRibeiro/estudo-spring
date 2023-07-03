@@ -3,6 +3,7 @@ package com.leolaia.estudospring.data.vo.v1;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
+import jakarta.persistence.Column;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -21,17 +22,10 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     private String address;
     private String gender;
 
+    private Boolean enabled;
+
     public PersonVO() {
     }
-
-    public PersonVO(Long key, String firstName, String lastName, String address, String gender) {
-        this.key = key;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.gender = gender;
-    }
-
     public Long getKey() {
         return key;
     }
@@ -72,15 +66,24 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
         this.gender = gender;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PersonVO person)) return false;
-        return Objects.equals(getKey(), person.getKey()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
+        if (!(o instanceof PersonVO vo)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(getKey(), vo.getKey()) && Objects.equals(getFirstName(), vo.getFirstName()) && Objects.equals(getLastName(), vo.getLastName()) && Objects.equals(getAddress(), vo.getAddress()) && Objects.equals(getGender(), vo.getGender()) && Objects.equals(getEnabled(), vo.getEnabled());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getKey(), getFirstName(), getLastName(), getAddress(), getGender());
+        return Objects.hash(super.hashCode(), getKey(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled());
     }
 }

@@ -266,5 +266,6 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         person.setLast_name("Henrique");
         person.setAddress("Parque, Quatro Barras, PR");
         person.setGender("Male");
+        person.setEnabled(true);
     }
 }

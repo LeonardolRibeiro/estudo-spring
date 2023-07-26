@@ -19,7 +19,7 @@ import java.util.List;
 
 
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/api/person/v1")
 @Tag(name = "People", description = "Endpoints for managing people")

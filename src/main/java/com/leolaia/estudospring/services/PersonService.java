@@ -10,6 +10,8 @@ import com.leolaia.estudospring.mappers.custom.PersonMapper;
 import com.leolaia.estudospring.models.Person;
 import com.leolaia.estudospring.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,19 +32,17 @@ public class PersonService {
     PersonMapper mapper;
 
 
-    public List<PersonVO> findAll() {
+    public Page<PersonVO> findAll(Pageable pageable) {
         logger.info("Finding all people!");
-        List<PersonVO> personVOS = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
-        personVOS
-                .stream().
-                forEach(p -> {
-                    try {
-                        p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-        return personVOS;
+        var personPage = repository.findAll(pageable);
+        var personVoPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
+        personVoPage = personVoPage.map(
+                p -> p.add(
+                        linkTo(methodOn(PersonController.class)
+                                .findById(p.getKey())).withSelfRel()));
+
+
+        return personVoPage;
     }
     public PersonVO findById(Long id) {
         logger.info("Finding one person!");

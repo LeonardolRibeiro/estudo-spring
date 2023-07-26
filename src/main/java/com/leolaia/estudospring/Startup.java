@@ -16,19 +16,20 @@ public class Startup {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Startup.class, args);
-//
-//		Map<String, PasswordEncoder> encoders = new HashMap<>();
-//
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//		encoders.put("BCryptPasswordEncoder", encoder);
-//		DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("BCryptPasswordEncoder", encoders);
-//		passwordEncoder.setDefaultPasswordEncoderForMatches(encoder);
-//
-//		String result1 = passwordEncoder.encode("teste");
-//		String result2 = passwordEncoder.encode("teste");
-//		System.out.println("My hash result1 " + result1);
-//		System.out.println("My hash result2 " + result2);
+
+		/*Map<String, PasswordEncoder> encoders = new HashMap<>();
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		encoders.put("BCryptPasswordEncoder", encoder);
+		DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("BCryptPasswordEncoder", encoders);
+		passwordEncoder.setDefaultPasswordEncoderForMatches(encoder);
+
+		String result1 = passwordEncoder.encode("teste");
+		String result2 = passwordEncoder.encode("teste");
+		System.out.println("My hash result1 " + result1);
+		System.out.println("My hash result2 " + result2);*/
+
 
 	}
 }
